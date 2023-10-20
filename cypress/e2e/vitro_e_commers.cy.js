@@ -6,6 +6,8 @@ import ShippingPage from '../support/page_objects/ShippingPage/ShippingPage';
 import BillingPage from '../support/page_objects/BillingPage/BillingPage';
 import GetBalancePopUp from '../support/page_objects/BillingPage/GetBalancePopUp/GetBalance';
 
+import TestData from './Secret_variables/Test_data';
+
 describe('Login and Post-Login Tests', function() {
   // Инициализация Page Objects
   const loginPage = new LoginPage();
@@ -22,16 +24,17 @@ describe('Login and Post-Login Tests', function() {
   });
 
   // Основной тестовый сценарий
-  it('Should login and then perform actions', function() {
-    // Этап логина
-    loginPage.visit();
-    loginPage.fillEmail('test549854545@test.com');
-    loginPage.fillPassword('1234567Test!');
-    loginPage.clickLoginButton();
+it('Should login and then perform actions', function() {
+  // Этап логина
+  loginPage.visit();
+ loginPage.fillEmail(TestData.email);
+    loginPage.fillPassword(TestData.password);
 
-    // Проверки и действия после успешного логина
-    cy.wait(6000);
-    cy.url().should('include', '/home');
+  loginPage.clickLoginButton();
+
+  // Проверки и действия после успешного логина
+  cy.wait(6000);
+  cy.url().should('include', '/home');
 
     // Действия на главной странице
     homePage.ClickCategoryItemButton();
@@ -74,7 +77,7 @@ describe('Login and Post-Login Tests', function() {
     billingPage.PullBackPaymentMethodConfirm();
 
     // Выбор доступной карты в модальном окне
-    getBalancePopUp.SelectAvailableCard();
+      getBalancePopUp.SelectAvailableCard();
     //getBalancePopUp.AcceptCardPreference();
     //getBalancePopUp.ConfirmPreferenceButton();
   });
