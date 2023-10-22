@@ -1,38 +1,78 @@
+import { HomePageLocators } from './HomePageLocators/HomePageLocators';
+
 class HomePage {
+
   ClickCategoryItemButton() {
     cy.wait(5000);
-    cy.get('img[alt="Education"]').click();
+    cy.get(HomePageLocators.categoryItemButton)
+      .click()
+      .then(($el) => {
+          console.log(`Clicked on Category Item Button`);
+          console.log(`Element state: ${$el}`);
+      });
   }
+
   SelectCategoryItem_GI(){
     cy.wait(3000);
-    cy.get('.vc-button--outline--primary').first().click();
-
+    cy.get(HomePageLocators.categoryItem_GI)
+      .first()
+      .click()
+      .then(($el) => {
+          console.log(`Selected Category Item GI`);
+          console.log(`Element state: ${$el}`);
+      });
   }
 
   OpenFiltersCollection(){
     cy.wait(1500);
-    cy.xpath('//*[@id="app"]/div/div[4]/div/div/div/div/div/div[3]/button').click();
+    cy.xpath(HomePageLocators.openFiltersCollection)
+      .click()
+      .then(($el) => {
+          console.log(`Opened Filters Collection`);
+          console.log(`Element state: ${$el}`);
+      });
   }
+
   SelectCheckBoxPocketNurse(){
     cy.wait(1500);
-    cy.xpath('/html/body/div[4]/div[2]/div[1]/div[2]/div/div/label[4]').click();
+    cy.xpath(HomePageLocators.checkBoxPocketNurse)
+      .click()
+      .then(($el) => {
+          console.log(`Selected CheckBox PocketNurse`);
+          console.log(`Element state: ${$el}`);
+      });
   }
 
   AcceptReference(){
     cy.wait(2500);
-    cy.xpath('/html/body/div[4]/div[3]/div/button[2]').click();
+    cy.xpath(HomePageLocators.acceptReference)
+      .click()
+      .then(($el) => {
+          console.log(`Accepted Reference`);
+          console.log(`Element state: ${$el}`);
+      });
   }
 
   SelectCategoryItemPN(){
     cy.wait(1500);
-    cy.get('.vc-button.vc-button--size--sm.vc-button--outline--primary').first().click();
+    cy.get(HomePageLocators.categoryItemPN)
+      .first()
+      .click()
+      .then(($el) => {
+          console.log(`Selected Category Item PN`);
+          console.log(`Element state: ${$el}`);
+      });
   }
 
   OpenCart(){
     cy.wait(1500);
-    cy.xpath('//*[@id="app"]/div/div[1]/div[1]/div[2]/a[2]/span').click();
+    cy.xpath(HomePageLocators.openCart)
+      .click()
+      .then(($el) => {
+          console.log(`Opened Cart`);
+          console.log(`Element state: ${$el}`);
+      });
   }
-
 }
 
 export default HomePage;

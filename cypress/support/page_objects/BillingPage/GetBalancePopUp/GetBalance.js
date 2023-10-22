@@ -9,18 +9,27 @@ class GetBalancePopUp {
   /**
    * Select the first available card.
    */
-SelectAvailableCard() {
+  SelectAvailableCard() {
     cy.get('div.MuiDialog-paper').within(() => {
-      cy.contains('span', 'Credit Card').click();
+      cy.contains('span', 'Credit Card')
+        .click()
+        .then(($el) => {
+          console.log(`Selected the first available card`);
+          console.log(`Element state: ${$el}`);
+        });
     });
   }
-
 
   /**
    * Accept the card preference.
    */
   AcceptCardPreference() {
-    cy.xpath(confirmButtonXPath).click();
+    cy.xpath(confirmButtonXPath)
+      .click()
+      .then(($el) => {
+        console.log(`Accepted the card preference`);
+        console.log(`Element state: ${$el}`);
+      });
     cy.wait(2000);  // Consider replacing with dynamic wait
   }
 
@@ -29,7 +38,12 @@ SelectAvailableCard() {
    */
   ConfirmPreferenceButton() {
     cy.wait(2000);  // Consider replacing with dynamic wait
-    cy.xpath(confirmButtonXPath).click();
+    cy.xpath(confirmButtonXPath)
+      .click()
+      .then(($el) => {
+        console.log(`Confirmed the preference`);
+        console.log(`Element state: ${$el}`);
+      });
   }
 }
 

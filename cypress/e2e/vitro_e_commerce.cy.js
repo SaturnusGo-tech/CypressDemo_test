@@ -1,11 +1,10 @@
 // Импорт Page Objects
-import LoginPage from '../support/page_objects/LoginPage';
+import LoginPage from '../support/page_objects/LoginPage/LoginPage';
 import HomePage from '../support/page_objects/HomePage/HomePage';
 import CartPage from '../support/page_objects/CartPage/CartPage';
 import ShippingPage from '../support/page_objects/ShippingPage/ShippingPage';
 import BillingPage from '../support/page_objects/BillingPage/BillingPage';
 import GetBalancePopUp from '../support/page_objects/BillingPage/GetBalancePopUp/GetBalance';
-
 import TestData from './Secret_variables/Test_data';
 
 describe('Login and Post-Login Tests', function() {
@@ -24,17 +23,16 @@ describe('Login and Post-Login Tests', function() {
   });
 
   // Основной тестовый сценарий
-it('Should login and then perform actions', function() {
-  // Этап логина
-  loginPage.visit();
- loginPage.fillEmail(TestData.email);
+  it('Should login and then perform actions', function() {
+    // Этап логина
+    loginPage.visit();
+    loginPage.fillEmail(TestData.email);
     loginPage.fillPassword(TestData.password);
+    loginPage.clickLoginButton();
 
-  loginPage.clickLoginButton();
-
-  // Проверки и действия после успешного логина
-  cy.wait(6000);
-  cy.url().should('include', '/home');
+    // Проверка успешного входа
+    cy.wait(6000);
+    cy.url().should('include', '/home');
 
     // Действия на главной странице
     homePage.ClickCategoryItemButton();
@@ -45,8 +43,10 @@ it('Should login and then perform actions', function() {
     homePage.SelectCategoryItemPN();
     homePage.OpenCart();
 
-    // Действия на странице корзины
-    cartPage.getAndStoreCartValue();
+    // Проверка, что корзина не пуста
+    //cartPage.getAndStoreCartValue();
+    //expect(cartPage.cartValue).to.be.greaterThan(0);
+
     cartPage.OpenProceedCheckoutPage();
 
     // Действия на странице доставки
@@ -77,8 +77,7 @@ it('Should login and then perform actions', function() {
     billingPage.PullBackPaymentMethodConfirm();
 
     // Выбор доступной карты в модальном окне
-      getBalancePopUp.SelectAvailableCard();
-    //getBalancePopUp.AcceptCardPreference();
-    //getBalancePopUp.ConfirmPreferenceButton();
+    getBalancePopUp.SelectAvailableCard();
+    // Остальные методы вызову после фикса с iframe
   });
 });
