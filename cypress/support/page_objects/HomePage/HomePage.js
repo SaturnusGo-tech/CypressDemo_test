@@ -2,77 +2,85 @@ import { HomePageLocators } from './HomePageLocators/HomePageLocators';
 
 class HomePage {
 
+  // Click the 'Category Item' button
   ClickCategoryItemButton() {
-    cy.wait(5000);
+    cy.wait(5000);  // Wait for 5 seconds to ensure all elements are loaded
     cy.get(HomePageLocators.categoryItemButton)
-      .click()
+      .click()  // Click the Category Item button
       .then(($el) => {
-          console.log(`Clicked on Category Item Button`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Clicked on Category Item Button');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  SelectCategoryItem_GI(){
-    cy.wait(3000);
+  // Select the 'GI' category item
+  SelectCategoryItem_GI() {
+    cy.wait(3000);  // Wait for 3 seconds
     cy.get(HomePageLocators.categoryItem_GI)
       .first()
-      .click()
+      .click()  // Click the first 'GI' category item
       .then(($el) => {
-          console.log(`Selected Category Item GI`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Selected Category Item GI');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  OpenFiltersCollection(){
-    cy.wait(1500);
+  // Open the 'Filters' collection
+  OpenFiltersCollection() {
+    cy.wait(1500);  // Wait for 1.5 seconds
     cy.xpath(HomePageLocators.openFiltersCollection)
-      .click()
+      .click()  // Click to open filters collection
       .then(($el) => {
-          console.log(`Opened Filters Collection`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Opened Filters Collection');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  SelectCheckBoxPocketNurse(){
-    cy.wait(1500);
+  // Select the 'PocketNurse' checkbox
+  SelectCheckBoxPocketNurse() {
+    cy.wait(1500);  // Wait for 1.5 seconds
     cy.xpath(HomePageLocators.checkBoxPocketNurse)
-      .click()
+      .click()  // Click the 'PocketNurse' checkbox
       .then(($el) => {
-          console.log(`Selected CheckBox PocketNurse`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Selected CheckBox PocketNurse');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  AcceptReference(){
-    cy.wait(2500);
+  // Accept the reference
+  AcceptReference() {
+    cy.wait(2500);  // Wait for 2.5 seconds
     cy.xpath(HomePageLocators.acceptReference)
-      .click()
+      .click()  // Click to accept the reference
       .then(($el) => {
-          console.log(`Accepted Reference`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Accepted Reference');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  SelectCategoryItemPN(){
-    cy.wait(1500);
+  // Select the 'PN' category item
+  SelectCategoryItemPN() {
+    cy.wait(1500);  // Wait for 1.5 seconds
     cy.get(HomePageLocators.categoryItemPN)
       .first()
-      .click()
+      .click()  // Click the first 'PN' category item
       .then(($el) => {
-          console.log(`Selected Category Item PN`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Selected Category Item PN');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 
-  OpenCart(){
-    cy.wait(1500);
+  // Open the shopping cart
+  OpenCart() {
+    cy.wait(1500);  // Wait for 1.5 seconds
     cy.xpath(HomePageLocators.openCart)
-      .click()
+      .click()  // Click to open the cart
       .then(($el) => {
-          console.log(`Opened Cart`);
-          console.log(`Element state: ${$el}`);
+        cy.log('Opened Cart');  // Log the action
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
       });
   }
 }
+
 
 export default HomePage;

@@ -6,45 +6,34 @@ const confirmButtonXPath = '/html/body/div[2]/div[3]/div/div/div/section/div[2]/
  */
 class GetBalancePopUp {
 
-  /**
-   * Select the first available card.
-   */
-  SelectAvailableCard() {
-    cy.get('div.MuiDialog-paper').within(() => {
-      cy.contains('span', 'Credit Card')
-        .click()
-        .then(($el) => {
-          console.log(`Selected the first available card`);
-          console.log(`Element state: ${$el}`);
+    /**
+     * Select the first available card.
+     */
+    SelectAvailableCard() {
+        // Количество кликов
+        const numberOfClicks = 5; // Замените на нужное количество кликов
+
+        cy.window().then((win) => {
+            // Указываем конкретные координаты, на которые нужно навести мышь
+            const x = 557;
+            const y = 256;
+
+            // Симулируем перемещение мыши на заданные координаты
+            cy.get('body').trigger('mousemove', {clientX: x, clientY: y});
+
+            // Проходим цикл для нескольких кликов
+            for (let i = 0; i < numberOfClicks; i++) {
+                // Симулируем клик мышью на заданных координатах
+                cy.get('body').trigger('click', {clientX: x, clientY: y});
+
+                // Ждем небольшую паузу между кликами (опционально)
+                cy.wait(500);
+            }
+
+            cy.log(`Moved mouse to coordinates (${x}, ${y}) and clicked ${numberOfClicks} times`);
         });
-    });
-  }
 
-  /**
-   * Accept the card preference.
-   */
-  AcceptCardPreference() {
-    cy.xpath(confirmButtonXPath)
-      .click()
-      .then(($el) => {
-        console.log(`Accepted the card preference`);
-        console.log(`Element state: ${$el}`);
-      });
-    cy.wait(2000);  // Consider replacing with dynamic wait
-  }
-
-  /**
-   * Confirm the preference.
-   */
-  ConfirmPreferenceButton() {
-    cy.wait(2000);  // Consider replacing with dynamic wait
-    cy.xpath(confirmButtonXPath)
-      .click()
-      .then(($el) => {
-        console.log(`Confirmed the preference`);
-        console.log(`Element state: ${$el}`);
-      });
-  }
+        cy.wait(10000);  // Ожидание 10 секунд, чтобы увидеть результат
+    }
 }
-
 export default GetBalancePopUp;

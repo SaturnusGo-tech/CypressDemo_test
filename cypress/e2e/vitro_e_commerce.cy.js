@@ -1,4 +1,4 @@
-// Импорт Page Objects
+// Importing Page Objects
 import LoginPage from '../support/page_objects/LoginPage/LoginPage';
 import HomePage from '../support/page_objects/HomePage/HomePage';
 import CartPage from '../support/page_objects/CartPage/CartPage';
@@ -8,7 +8,7 @@ import GetBalancePopUp from '../support/page_objects/BillingPage/GetBalancePopUp
 import TestData from './Secret_variables/Test_data';
 
 describe('Login and Post-Login Tests', function() {
-  // Инициализация Page Objects
+  // Initializing Page Objects
   const loginPage = new LoginPage();
   const homePage = new HomePage();
   const cartPage = new CartPage();
@@ -16,25 +16,30 @@ describe('Login and Post-Login Tests', function() {
   const billingPage = new BillingPage();
   const getBalancePopUp = new GetBalancePopUp();
 
-  // Запускается перед каждым тестом
+  // This block runs before each test
   beforeEach(() => {
-    cy.clearCookies();  // Очистка всех cookies
-    cy.clearLocalStorage();  // Очистка локального хранилища
+    cy.log('Clearing cookies and local storage'); // Logging
+    cy.clearCookies();  // Clear all cookies
+    cy.clearLocalStorage();  // Clear local storage
   });
 
-  // Основной тестовый сценарий
+  // Main Test Scenario
   it('Should login and then perform actions', function() {
-    // Этап логина
+    cy.log('Starting Login Phase'); // Logging
+    // Login Phase
     loginPage.visit();
     loginPage.fillEmail(TestData.email);
     loginPage.fillPassword(TestData.password);
     loginPage.clickLoginButton();
+    loginPage.checkNoErrorMessage();
 
-    // Проверка успешного входа
+    cy.log('Verifying successful login'); // Logging
+    // Verify successful login
     cy.wait(6000);
     cy.url().should('include', '/home');
 
-    // Действия на главной странице
+    cy.log('Performing actions on the Home Page'); // Logging
+    // Actions on Home Page
     homePage.ClickCategoryItemButton();
     homePage.SelectCategoryItem_GI();
     homePage.OpenFiltersCollection();
@@ -43,13 +48,16 @@ describe('Login and Post-Login Tests', function() {
     homePage.SelectCategoryItemPN();
     homePage.OpenCart();
 
-    // Проверка, что корзина не пуста
-    //cartPage.getAndStoreCartValue();
-    //expect(cartPage.cartValue).to.be.greaterThan(0);
+    cy.log('Verifying the cart is not empty'); // Logging
+    // Check that cart is not empty
+    // cartPage.getAndStoreCartValue();
+    // expect(cartPage.cartValue).to.be.greaterThan(0);
 
+    cy.log('Proceeding to checkout'); // Logging
     cartPage.OpenProceedCheckoutPage();
 
-    // Действия на странице доставки
+    cy.log('Performing actions on Shipping Page'); // Logging
+    // Actions on Shipping Page
     shippingPage.OpenShippingAddresses();
     shippingPage.SelectShippingAddress();
     shippingPage.AcceptShippingAddress();
@@ -62,7 +70,8 @@ describe('Login and Post-Login Tests', function() {
     shippingPage.SelectDeliveryOption();
     shippingPage.GoNextToBillingPage();
 
-    // Действия на странице оплаты
+    cy.log('Performing actions on Billing Page'); // Logging
+    // Actions on Billing Page
     billingPage.OpenPaymentMethod();
     billingPage.SelectPaymentMethodCreditCard();
     billingPage.OpenBillingAddressList();
@@ -75,9 +84,6 @@ describe('Login and Post-Login Tests', function() {
     billingPage.GoBackToCart();
     billingPage.PullBackPaymentButton();
     billingPage.PullBackPaymentMethodConfirm();
-
-    // Выбор доступной карты в модальном окне
-    getBalancePopUp.SelectAvailableCard();
-    // Остальные методы вызову после фикса с iframe
   });
+
 });

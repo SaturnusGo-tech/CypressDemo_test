@@ -1,18 +1,27 @@
 import { CartPageLocators } from './CartPageLocators/CartPageLocators';
 
 class CartPage {
+
+  // Retrieve and store the current cart value
   getAndStoreCartValue() {
-    cy.wait(2000);
+    cy.wait(2000);  // Wait for 2 seconds to ensure the cart value is loaded
     cy.xpath(CartPageLocators.cartValue)
-      .invoke('text')
+      .invoke('text')  // Get the text value of the cart
       .then((text) => {
-        cy.wrap(text).as('cartValue');
+        cy.wrap(text).as('cartValue');  // Store the cart value for future use
+        cy.log(`Retrieved and stored cart value: ${text}`);  // Log the stored cart value
       });
   }
 
-  OpenProceedCheckoutPage(){
-    cy.wait(1800);
-    cy.xpath(CartPageLocators.proceedCheckoutButton).click();
+  // Navigate to the Proceed to Checkout page
+  OpenProceedCheckoutPage() {
+    cy.wait(1800);  // Wait for 1.8 seconds to ensure all elements are loaded
+    cy.xpath(CartPageLocators.proceedCheckoutButton)
+      .click()  // Click the Proceed to Checkout button
+      .then(($el) => {
+        cy.log('Navigated to the Proceed to Checkout page');  // Log navigation
+        cy.log(`Element state: ${$el}`);  // Log the state of the clicked element
+      });
   }
 }
 

@@ -1,47 +1,71 @@
 import AuthLogin from '../../../support/navigation/AuthLogin';
 import { LoginPageLocators } from './LoginPageLocators/LoginPageLocators';
 
+// Class for handling operations related to the Login Page
 class LoginPage {
 
+  // Navigate to the Home Page
   visit() {
     AuthLogin.visitHomePage();
-    console.log('Visited Home Page');
+    cy.log('Step: Visited Home Page'); // Logging
   }
 
- // Fill in the email field
-fillEmail(email) {
-  return cy.get(LoginPageLocators.EMAIL_INPUT)
-    .should('be.visible')
-    .type(email)
-    .then(($el) => {
-      console.log(`Filled email field with: ${email}`);
-      console.log(`Element state: ${$el}`);
-      return cy.wrap($el);
-    });
-}
+  // Fill the Email input field
+  fillEmail(email) {
+    cy.log('Step: Filling the Email field'); // Logging
+    cy.get(LoginPageLocators.EMAIL_INPUT)
+      .should('be.visible')  // Assertion: Check if visible
+      .should('be.empty')    // Assertion: Check if empty
+      .type(email)           // Type the email
+      .should('have.value', email);  // Assertion: Check if value is as expected
 
-// Fill in the password field
-fillPassword(password) {
-  return cy.get(LoginPageLocators.PASSWORD_INPUT)
-    .should('be.visible')
-    .type(password)
-    .then(($el) => {
-      console.log(`Filled password field with: ${password}`);
-      console.log(`Element state: ${$el}`);
-      return cy.wrap($el);
-    });
-}
+    cy.log(`Completed: Filled email field with ${email}`); // Logging
+  }
 
+  // Fill the Password input field
+  fillPassword(password) {
+    cy.log('Step: Filling the Password field'); // Logging
+    cy.get(LoginPageLocators.PASSWORD_INPUT)
+      .should('be.visible')  // Assertion: Check if visible
+      .should('be.empty')    // Assertion: Check if empty
+      .type(password)        // Type the password
+      .should('have.value', password);  // Assertion: Check if value is as expected
 
-  // Click the login button
+    cy.log(`Completed: Filled password field with ${password}`); // Logging
+  }
+
+  // Click the Login Button
   clickLoginButton() {
+    cy.log('Step: Clicking the Login Button'); // Logging
     cy.xpath(LoginPageLocators.LOGIN_BUTTON)
-      .should('be.visible')
-      .click()
-      .then(($el) => {
-          console.log(`Clicked on Login Button with XPath: ${LoginPageLocators.LOGIN_BUTTON}`);
-          console.log(`Element state: ${$el}`);
-      });
+      .should('be.visible')  // Assertion: Check if visible
+      .should('be.enabled')  // Assertion: Check if enabled
+      .click();              // Click the button
+
+    cy.log(`Completed: Clicked on Login Button with XPath ${LoginPageLocators.LOGIN_BUTTON}`); // Logging
+  }
+
+  // Check if there are no error messages displayed
+  checkNoErrorMessage() {
+    cy.log('Step: Checking for the absence of error messages'); // Logging
+    cy.document().then((doc) => {
+      const errorElement = doc.evaluate(
+        LoginPageLocators.ERROR_MESSAGE,
+        doc,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      ).singleNodeValue;
+
+      if (errorElement) {
+        // Assertion: If the element is found, check its content
+        expect(errorElement.textContent).to.not.contain('Invalid login credentials');
+        cy.log('Completed: Found error message element but it does not contain invalid login text'); // Logging
+      } else {
+        // If the element is not found, proceed
+        cy.log('Completed: No error message element found, which is expected.'); // Logging
+      }
+    });
   }
 }
 
