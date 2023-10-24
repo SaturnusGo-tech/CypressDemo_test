@@ -4,7 +4,7 @@ class BillingPage {
 
     // Open the payment method section
     OpenPaymentMethod() {
-        cy.wait(1000);
+        cy.wait(1000); // ml
         cy.xpath(BillingPageLocators.OpenPaymentMethod)
             .click()
             .then(($el) => {

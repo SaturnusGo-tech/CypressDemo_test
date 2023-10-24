@@ -38,26 +38,3 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe) => {
   const iframe = $iframe.contents();
   return cy.wrap(iframe);
 });
-
-// Custom commd
-Cypress.Commands.add('createPost', { prevSubject: true }, (subject, title, content) => {
-cy.wrap(subject)
-.visit('/posts/new')
-.get('input[name="title"]').type(title)
-.get('textarea[name="content"]').type(content)
-.get('button[type="submit"]').realClick();
-
-return cy.get('.post').should('contain', title).and('contain', content);
-});
-
-it('should create a post and then like it', () => {
-cy.createPost('My Title', 'My Content')
-.get('.like-button').click()
-.get('.likes-count').should('contain', '1');
-});
-
-
-
-
-
-
